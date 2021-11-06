@@ -1,0 +1,13 @@
+{
+  "name": "Ciclo-3-Web-API",
+  "version": "1.0.0",
+  "description": "Api para aplicacion web",
+  "main": "index.js",
+  "repository": "git@github.com:fssanabriac/Ciclo-3-Web-API.git",
+  "author": "Sebastian Sanabria <fssanabriac@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
