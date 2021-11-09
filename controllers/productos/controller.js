@@ -58,4 +58,11 @@ const actualizarProducto = async(edicion, callback) =>{
         // }); 
 };
 
-export {queryTodosProductos, crearProducto, actualizarProducto};
+const eliminarProducto = async(id, callback) =>{
+    const filtroProducto = { _id: new ObjectId(id)}
+    const baseDatos = getDB();
+
+    baseDatos.collection('producto').deleteOne(filtroProducto, callback);
+}
+
+export {queryTodosProductos, crearProducto, actualizarProducto, eliminarProducto};

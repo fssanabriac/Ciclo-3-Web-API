@@ -1,6 +1,9 @@
 import Express from 'express';
-import { queryTodosProductos, crearProducto, actualizarProducto } from '../../controllers/productos/controller.js';
-import {getDB} from '../../db/db.js'
+import {
+    queryTodosProductos, 
+    crearProducto,
+    actualizarProducto,
+    eliminarProducto } from '../../controllers/productos/controller.js';
 
 const rutasProducto = Express.Router();
 
@@ -31,18 +34,9 @@ rutasProducto.route('/productos/actualizar').patch((req,res)=>{
 });
 
 rutasProducto.route('/productos/eliminar').delete((req,res)=>{
-    const filtroProducto = { _id: new ObjectId(req.body.id)}
-    const baseDatos = getDB();
-
-    baseDatos.collection('producto').deleteOne(filtroProducto, (err, result) =>{
-        if (err) {
-            console.error('Error al eliminar el producto.');
-            res.sendStatus(500);
-        } else {
-            console.log('Producto eliminado exitosamente');
-            res.sendStatus(200);
-        }
-    })
+    console.log('\tDELETE to /productos/eliminar ',  req.body);
+    
+    eliminarProducto(req.body.id, callbackGenerico(res));
 })
 
 export default rutasProducto;
