@@ -21,22 +21,22 @@ rutasProducto.route('/productos').get((req, res)=>{
     queryTodosProductos(callbackGenerico(res));
 });
 
-rutasProducto.route('/productos/nuevo').post((req, res)=>{
+rutasProducto.route('/productos/').post((req, res)=>{
     console.log('\tPOST to /productos/nuevo ', req.body);
     
     crearProducto(req.body,callbackGenerico(res));
 });
 
-rutasProducto.route('/productos/actualizar').patch((req,res)=>{
-    console.log('\tPATCH to /productos/actualizar ',  req.body);
+rutasProducto.route('/productos/:id').patch((req,res)=>{
+    console.log('\tPATCH to /productos/:id ',  req.body);
    
-    actualizarProducto(req.body, callbackGenerico(res));
+    actualizarProducto(req.params.id, req.body, callbackGenerico(res));
 });
 
-rutasProducto.route('/productos/eliminar').delete((req,res)=>{
-    console.log('\tDELETE to /productos/eliminar ',  req.body);
+rutasProducto.route('/productos/:id').delete((req,res)=>{
+    console.log('\tDELETE to /productos/:id ',  req.body);
     
-    eliminarProducto(req.body.id, callbackGenerico(res));
+    eliminarProducto(req.params.id, callbackGenerico(res));
 })
 
 export default rutasProducto;

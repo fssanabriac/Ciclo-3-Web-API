@@ -32,10 +32,9 @@ const crearProducto = async(datosProducto, callback) => {
     };
 };
 
-const actualizarProducto = async(edicion, callback) =>{
-    const filtroProducto = { _id: new ObjectId(edicion.id) };
+const actualizarProducto = async(id, edicion, callback) =>{
+    const filtroProducto = { _id: new ObjectId(id) };
 
-    delete edicion.id;
     const operacion = {
         $set:edicion,
     }
