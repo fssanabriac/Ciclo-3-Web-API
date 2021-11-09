@@ -3,7 +3,7 @@
 import  Express  from "express";
 import  Cors from 'cors';
 import dotenv from 'dotenv';
-import {conectarDB, getDB} from './db/db.js'
+import {conectarDB} from './db/db.js'
 import rutasProducto from "./views/productos/rutas.js";
 
 dotenv.config({path:'./.env'});

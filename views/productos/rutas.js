@@ -1,56 +1,27 @@
 import Express from 'express';
+import { queryTodosProductos, crearProducto } from '../../controllers/productos/controller.js';
 import {getDB} from '../../db/db.js'
 
 const rutasProducto = Express.Router();
 
-rutasProducto.route('/productos').get((req, res)=>{
-    console.log('get to /productos');
-    const baseDatos = getDB();
+const callbackGenerico = (res) => (err, result) => {
+    if (err) {
+        res.status(500).send("Error consultando el producto")
+    } else {
+        res.json(result);
+    };
+};
 
-    baseDatos
-    .collection('producto')
-    .find({})
-   .limit(50)
-    .toArray((err, result)=>{
-        if (err){
-            res.status(400).send("Error consultando el producto")
-        } else { 
-            res.json(result);
-        }
-    })
+rutasProducto.route('/productos').get((req, res)=>{
+    console.log('GET to /productos');
+
+    queryTodosProductos(callbackGenerico(res));
 });
 
 rutasProducto.route('/productos/nuevo').post((req, res)=>{
-    console.log('post to /productos/nuevo ',  req.body);
-    const datosProducto = req.body;
-
-    console.log('Llaves: ', Object.keys(datosProducto))
-
-    try{
-        if(
-            Object.keys(datosProducto).includes('nombre') &&
-            Object.keys(datosProducto).includes('descripcion') &&
-            Object.keys(datosProducto).includes('precio') &&
-            Object.keys(datosProducto).includes('estado')
-        ){
-            // Agregar codigo para crear producto en DB
-            const baseDatos = getDB();
-            baseDatos.collection('producto').insertOne(datosProducto, (err, result)=>{
-                if (err) {
-                    console.error(err);
-                    res.sendStatus(500);
-                } else {
-                    console.log(result);
-                    res.sendStatus(200);
-                }
-            });
-        } else {
-            res.sendStatus(500);
-
-        }
-    }catch{
-            res.sendStatus(500);
-    }
+    console.log('POST to /productos/nuevo ', req.body);
+    
+    crearProducto(req.body,callbackGenerico(res));
 });
 
 rutasProducto.route('/productos/actualizar').patch((req,res)=>{
