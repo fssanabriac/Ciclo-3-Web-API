@@ -1,4 +1,5 @@
 
+import { ObjectId } from 'mongodb';
 import {getDB} from '../../db/db.js'
 
 const queryTodosProductos = async(callback) => {
@@ -24,11 +25,37 @@ const crearProducto = async(datosProducto, callback) => {
     ) {
             // Agregar codigo para crear producto en DB
         const baseDatos = getDB();
-        baseDatos.collection('producto').insertOne(datosProducto, callback 
+        await baseDatos.collection('producto').insertOne(datosProducto, callback 
         );
     } else {
         return "Error";
     };
 };
 
-export {queryTodosProductos, crearProducto};
+const actualizarProducto = async(edicion, callback) =>{
+    const filtroProducto = { _id: new ObjectId(edicion.id) };
+
+    delete edicion.id;
+    const operacion = {
+        $set:edicion,
+    }
+    const baseDatos = getDB();
+
+    await baseDatos
+    .collection('producto')
+    .findOneAndUpdate(
+        filtroProducto,
+        operacion,
+        {upsert:true, returnOriginal: true}, callback);
+        // (err, result) => {
+        //     if (err) {
+        //         console.error('Error al actualizar el producto', err);
+        //         res.sendStatus(500);
+        //     } else {
+        //         console.log('Produto Actualizado con exito')
+        //         res.sendStatus(200);
+        //     }
+        // }); 
+};
+
+export {queryTodosProductos, crearProducto, actualizarProducto};
