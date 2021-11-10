@@ -3,7 +3,8 @@ import {
     queryTodosProductos, 
     crearProducto,
     actualizarProducto,
-    eliminarProducto } from '../../controllers/productos/controller.js';
+    eliminarProducto, 
+    obtenerProducto} from '../../controllers/productos/controller.js';
 
 const rutasProducto = Express.Router();
 
@@ -25,6 +26,12 @@ rutasProducto.route('/productos/').post((req, res)=>{
     console.log('\tPOST to /productos/nuevo ', req.body);
     
     crearProducto(req.body,callbackGenerico(res));
+});
+
+rutasProducto.route('/productos/:id').get((req, res)=>{
+    console.log('\tGET to /productos/:id - Only one item');
+
+    obtenerProducto(req.params.id, callbackGenerico(res));
 });
 
 rutasProducto.route('/productos/:id').patch((req,res)=>{

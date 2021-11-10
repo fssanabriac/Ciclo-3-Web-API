@@ -2,23 +2,23 @@
 import { ObjectId } from 'mongodb';
 import {getDB} from '../../db/db.js'
 
-const queryTodosProductos = async(callback) => {
+const queryTodosUsuarios = async(callback) => {
     const baseDatos = getDB();
 
     await baseDatos
-        .collection('producto')
+        .collection('usuario')
         .find({})
         .limit(50)
         .toArray(callback);
 };
 
-const obtenerProducto = async(id, callback) => {
+const obtenerUsuario = async(id, callback) => {
     const baseDatos = getDB();
 
-    await baseDatos.collection('producto').findOne({_id:new ObjectId(id)}, callback);
+    await baseDatos.collection('usuario').findOne({_id:new ObjectId(id)}, callback);
 }
 
-const crearProducto = async(datosProducto, callback) => {
+const crearUsuario = async(datosProducto, callback) => {
     // const datosProducto = req.body;
 
     console.log('Llaves: ', Object.keys(datosProducto))
@@ -31,15 +31,15 @@ const crearProducto = async(datosProducto, callback) => {
     ) {
             // Agregar codigo para crear producto en DB
         const baseDatos = getDB();
-        await baseDatos.collection('producto').insertOne(datosProducto, callback 
+        await baseDatos.collection('usuario').insertOne(datosProducto, callback 
         );
     } else {
         return "Error";
     };
 };
 
-const actualizarProducto = async(id, edicion, callback) =>{
-    const filtroProducto = { _id: new ObjectId(id) };
+const actualizarUsuario = async(id, edicion, callback) =>{
+    const filtroUsuario = { _id: new ObjectId(id) };
 
     const operacion = {
         $set:edicion,
@@ -47,9 +47,9 @@ const actualizarProducto = async(id, edicion, callback) =>{
     const baseDatos = getDB();
 
     await baseDatos
-    .collection('producto')
+    .collection('usuario')
     .findOneAndUpdate(
-        filtroProducto,
+        filtroUsuario,
         operacion,
         {upsert:true, returnOriginal: true}, callback);
         // (err, result) => {
@@ -63,11 +63,11 @@ const actualizarProducto = async(id, edicion, callback) =>{
         // }); 
 };
 
-const eliminarProducto = async(id, callback) =>{
-    const filtroProducto = { _id: new ObjectId(id)}
+const eliminarUsuario = async(id, callback) =>{
+    const filtroUsuario = { _id: new ObjectId(id)}
     const baseDatos = getDB();
 
-    baseDatos.collection('producto').deleteOne(filtroProducto, callback);
+    baseDatos.collection('usuario').deleteOne(filtroUsuario, callback);
 }
 
-export {queryTodosProductos, crearProducto, actualizarProducto, eliminarProducto, obtenerProducto};
+export {queryTodosUsuarios, crearUsuario, actualizarUsuario, eliminarUsuario, obtenerUsuario};
