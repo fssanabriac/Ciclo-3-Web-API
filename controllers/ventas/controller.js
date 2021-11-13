@@ -24,10 +24,15 @@ const crearVenta = async(datosProducto, callback) => {
     console.log('Llaves: ', Object.keys(datosProducto))
 
     if (
-        Object.keys(datosProducto).includes('nombre') &&
-        Object.keys(datosProducto).includes('descripcion') &&
-        Object.keys(datosProducto).includes('precio') &&
-        Object.keys(datosProducto).includes('estado')
+        Object.keys(datosProducto).includes('idSell') &&
+        Object.keys(datosProducto).includes('idProduct') &&
+        Object.keys(datosProducto).includes('quantity') &&
+        Object.keys(datosProducto).includes('unitValue') &&
+        Object.keys(datosProducto).includes('totalValue') &&
+        Object.keys(datosProducto).includes('date') &&
+        Object.keys(datosProducto).includes('idBuyer') &&
+        Object.keys(datosProducto).includes('nameBuyer') &&
+        Object.keys(datosProducto).includes('nameSeller') 
     ) {
             // Agregar codigo para crear producto en DB
         const baseDatos = getDB();

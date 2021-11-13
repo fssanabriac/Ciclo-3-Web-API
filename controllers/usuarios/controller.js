@@ -24,10 +24,10 @@ const crearUsuario = async(datosProducto, callback) => {
     console.log('Llaves: ', Object.keys(datosProducto))
 
     if (
-        Object.keys(datosProducto).includes('nombre') &&
-        Object.keys(datosProducto).includes('descripcion') &&
-        Object.keys(datosProducto).includes('precio') &&
-        Object.keys(datosProducto).includes('estado')
+        Object.keys(datosProducto).includes('name') &&
+        Object.keys(datosProducto).includes('idNumber') &&
+        Object.keys(datosProducto).includes('role') &&
+        Object.keys(datosProducto).includes('status')
     ) {
             // Agregar codigo para crear producto en DB
         const baseDatos = getDB();
