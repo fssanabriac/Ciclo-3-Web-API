@@ -24,7 +24,7 @@ const crearVenta = async(datosProducto, callback) => {
     console.log('Llaves: ', Object.keys(datosProducto))
 
     if (
-        Object.keys(datosProducto).includes('idSell') &&
+        Object.keys(datosProducto).includes('idSale') &&
         Object.keys(datosProducto).includes('idProduct') &&
         Object.keys(datosProducto).includes('quantity') &&
         Object.keys(datosProducto).includes('unitValue') &&
